@@ -5,8 +5,8 @@ function Summary() {
   const [summary, setSummary] = useState('');
 
   const handleSave = () => {
-    localStorage.setItem('genai_article_url', url);
-    localStorage.setItem('genai_article_summary', summary);
+localStorage.setItem('genAI_article_url', url);
+localStorage.setItem('genAI_article_summary', summary);
     alert('Saved locally (demo). You can wire this to your DB later.');
   };
 

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import api from '../utils/api';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 function Reports() {
   const [dbRows, setDbRows] = useState([]);
-  const url = localStorage.getItem('genai_article_url') || '';
-  const summary = localStorage.getItem('genai_article_summary') || '';
+const url = localStorage.getItem('genAI_article_url') || '';
+const summary = localStorage.getItem('genAI_article_summary') || '';
 
   useEffect(() => {
     (async () => {
@@ -25,16 +26,23 @@ function Reports() {
         <p><strong>Summary:</strong> {summary || 'No summary saved yet'}</p>
       </div>
       <div className="card">
-        <h3>DB-backed data (placeholder)</h3>
+        <h3>Generative AI Landscape</h3>
         {dbRows.length === 0 ? (
-          <p>No DB rows. Wire /charts/db-example to your schema.</p>
+          <p>No data yet. Wire /charts/reports-data to your backend.</p>
         ) : (
-          <ul>
-            {dbRows.map((r, i) => (
-              <li key={i}>{JSON.stringify(r)}</li>
-            ))}
-          </ul>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={dbRows}>
+              <XAxis dataKey="label" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="value" fill="#8884d8" />
+            </BarChart>
+          </ResponsiveContainer>
         )}
+        <p>
+          This chart shows the distribution of major players in Generative AI based on recent innovations.
+          Source: Your selected article.
+        </p>
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ router.post('/login', async (req, res) => {
 
   if (username === 'Lynnox' && password === 'Lynnox') {
     const payload = { sub: username, role: 'student', id: '800854051' };
-    const token = jwt.sign(payload, process.env.JWT_SECRET || 'devsecret', { expiresIn: '1h' });
+    const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
     return res.json({ token });
   }
 
