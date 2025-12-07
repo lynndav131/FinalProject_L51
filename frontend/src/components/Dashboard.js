@@ -113,20 +113,37 @@ function Dashboard() {
   return (
     <div className="container">
       <div className="card">
-        <h2>L51 Dashboard — Generative AI Innovations</h2>
+        <h2>Generative AI Innovations</h2>
         <p>
-          Choose a recent Generative AI innovation article from the list and add your summary on the Summary page. Then use the Reports page to discuss implications supported by charts.
+          Generative AI has rapidly evolved into a transformative force across industries, reshaping workflows, creativity, and communication. 
+          According to SystemSize, the next wave of innovation in 2025 will be defined by ten key trends, including hyper-personalization, multimodal creativity, 
+          and ethical breakthroughs. Tools like ChatGPT, DALL·E, and MidJourney have already demonstrated how AI can generate realistic text, images, and multimedia content, 
+          but the coming year will push boundaries further. Businesses are expected to leverage generative AI for tailored customer experiences, automated design, 
+          and advanced data storytelling. At the same time, challenges around bias, transparency, and responsible deployment remain central to ensuring sustainable adoption. 
+          The article emphasizes that generative AI is not just about efficiency—it is about enabling new forms of creativity and democratizing innovation. 
+          By 2025, organizations that embrace these trends will gain a competitive edge, while society at large will grapple with balancing innovation and ethics. 
+          This dashboard highlights the most impactful developments, supported by data visualizations that illustrate adoption rates and personalization growth.
+          <br />
+          <strong>Source:</strong> 
+          <a href="https://systemsize.com/blog/the-next-wave-of-generative-ai-10-trends-that-will-define-2025/" target="_blank" rel="noopener noreferrer">
+            The Next Wave of Generative AI: 10 Trends That Will Define 2025
+          </a>
         </p>
       </div>
 
       <div className="card">
-        <h3>Monthly trend (Line chart)</h3>
-        <div ref={lineRef} style={{ width: '100%' }} aria-label="Line chart"></div>
-      </div>
-
-      <div className="card">
-        <h3>Impacted domains (Bar chart)</h3>
-        <div ref={barRef} style={{ width: '100%' }} aria-label="Bar chart"></div>
+        <h2>Technical Aspects of the Project</h2>
+        <p>
+          This application is designed as a Single Page Application (SPA) with a fully decoupled frontend and backend. 
+          The frontend is built in React, served through NGINX on port 80, and styled with accessibility principles to meet ADA/WCAG guidelines. 
+          The backend runs on Express.js with JWT authentication, ensuring secure login and session management. Depending on student ID rules, 
+          the database layer uses either MySQL or MongoDB, with queries exposed through RESTful endpoints. Backend processes are managed with PM2, 
+          providing resilience and automatic restarts. Both frontend and backend are hosted on a Vultr cloud server, with firewall rules configured for secure external access. 
+          Data visualizations are rendered dynamically using D3.js, with chart data retrieved asynchronously from backend endpoints via HTTP calls. 
+          The project is version‑controlled in a single GitHub repository, with .gitignore used to exclude sensitive files and dependencies, 
+          ensuring a clean and reproducible deployment workflow. Together, this stack demonstrates a professional‑grade deployment pipeline that integrates 
+          modern web technologies, secure authentication, and interactive data storytelling.
+        </p>
       </div>
     </div>
   );
