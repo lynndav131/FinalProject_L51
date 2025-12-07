@@ -22,8 +22,8 @@ const summary = localStorage.getItem('genAI_article_summary') || '';
     <div className="container">
       <div className="card">
         <h2>Reports — Insights & Impact</h2>
-        <p><strong>Article URL:</strong> {url || 'No URL saved yet'}</p>
-        <p><strong>Summary:</strong> {summary || 'No summary saved yet'}</p>
+        <p><strong>Article URL:</strong> {url || 'No URL saved yet.'}</p>
+        <p><strong>Summary:</strong> {summary || 'No summary saved yet.'}</p>
       </div>
       <div className="card">
         <h3>Generative AI Landscape</h3>
