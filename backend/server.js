@@ -1,33 +1,30 @@
 const express = require('express');
-const cors = require('cors');
+const app = express();
+const db = require('./utils/db'); // ✅ Import your DB pool
 require('dotenv').config();
 
-const authRoutes = require('./routes/auth');
-const chartRoutes = require('./routes/charts');
-
-const app = express();
-
-
-// CORS (adjust origin as needed)
-app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:5173'], credentials: false }));
+// Middleware
 app.use(express.json());
 
-app.get('/health', (req, res) => res.json({ status: 'ok', app: 'L51' }));
+// Routers
+const chartsRouter = require('./routes/charts');
+const authRouter = require('./routes/auth');
 
-app.use('/auth', authRoutes);
-app.use('/charts', chartRoutes);
+app.use('/charts', chartsRouter);
+app.use('/auth', authRouter);
 
-const PORT = process.env.PORT ? Number(process.env.PORT) : 3000;
-app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
+// Start server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 
-const db = require('./utils/db');
-
-(async () => {
-  try {
-    const [rows] = await db.query('SELECT 1');
-    console.log('✅ DB connection successful');
-  } catch (err) {
-    console.error('❌ DB connection failed:', err);
-  }
-})();
-
+  // ✅ Test DB connection after server starts
+  (async () => {
+    try {
+      const [rows] = await db.query('SELECT 1');
+      console.log('✅ DB connection successful');
+    } catch (err) {
+      console.error('❌ DB connection failed:', err.message);
+    }
+  })();
+});
