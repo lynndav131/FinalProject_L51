@@ -1,27 +1,34 @@
 const express = require('express');
 const router = express.Router();
 const { authenticateToken } = require('../middleware/authMiddleware');
+const db = require('../utils/db');
 
-router.get('/summary-data', authenticateToken, (req, res) => {
-  res.json({
-    data: [
-      { label: 'Transformer Models', value: 40 },
-      { label: 'Diffusion Models', value: 30 },
-      { label: 'Multimodal AI', value: 20 },
-      { label: 'AI in Art', value: 10 }
-    ]
-  });
+// Summary chart data
+router.get('/summary-data', authenticateToken, async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      'SELECT label, value FROM chart_data WHERE chart_type = ?',
+      ['summary']
+    );
+    res.json({ data: rows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Database error' });
+  }
 });
 
-router.get('/reports-data', authenticateToken, (req, res) => {
-  res.json({
-    data: [
-      { label: 'OpenAI', value: 35 },
-      { label: 'Anthropic', value: 25 },
-      { label: 'Google DeepMind', value: 20 },
-      { label: 'Meta AI', value: 20 }
-    ]
-  });
+// Reports chart data
+router.get('/reports-data', authenticateToken, async (req, res) => {
+  try {
+    const [rows] = await db.query(
+      'SELECT label, value FROM chart_data WHERE chart_type = ?',
+      ['reports']
+    );
+    res.json({ data: rows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Database error' });
+  }
 });
 
 module.exports = router;
