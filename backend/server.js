@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 require('dotenv').config(); // ✅ Load environment variables
 
-// ✅ Import database pool
+// ✅ Import database pool (callback API)
 const db = require('./db');
 
 // ✅ Import routers
@@ -21,13 +21,12 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 
-  // ✅ Test DB connection after server starts
-  (async () => {
-    try {
-      const [rows] = await db.query('SELECT 1');
-      console.log('✅ DB connection successful');
-    } catch (err) {
+  // ✅ Test DB connection after server starts (callback style)
+  db.query('SELECT 1', (err, results) => {
+    if (err) {
       console.error('❌ DB connection failed:', err.message);
+    } else {
+      console.log('✅ DB connection successful');
     }
-  })();
+  });
 });
