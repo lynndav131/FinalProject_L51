@@ -1,7 +1,7 @@
 require('dotenv').config();
 const fs = require('fs');
 const path = require('path');
-const mysql = require('mysql2/promise');
+const mysql = require('mysql2');
 
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
@@ -22,14 +22,13 @@ module.exports = pool;
 
 // --- Test block: only runs if you call `node db.js` directly ---
 if (require.main === module) {
-  (async () => {
-    try {
-      const [rows] = await pool.query('SELECT NOW() AS time');
-      console.log('✅ Connected! Server time:', rows[0].time);
-      process.exit(0);
-    } catch (err) {
+  pool.query('SELECT NOW() AS time', (err, results) => {
+    if (err) {
       console.error('❌ Connection failed:', err);
       process.exit(1);
+    } else {
+      console.log('✅ Connected! Server time:', results[0].time);
+      process.exit(0);
     }
-  })();
+  });
 }
