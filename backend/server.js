@@ -3,7 +3,7 @@ const app = express();
 require('dotenv').config(); // ✅ Load environment variables
 
 // ✅ Import database pool
-const db = require('./config/db');
+const db = require('./db');
 
 // ✅ Import routers
 const chartsRouter = require('./routes/charts');
