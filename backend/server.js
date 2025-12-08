@@ -21,7 +21,7 @@ app.use('/charts', chartsRouter);
 app.use('/auth', authRouter);
 
 // ✅ Catch‑all route for React client‑side routing
-app.get('*', (req, res) => {
+app.get(/.*/, (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
